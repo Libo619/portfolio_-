@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刘钰炜 | 个人作品集 Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 深色暗黑模式调色板 */
+        :root {
+            --bg-dark: #070709;
+            --card-bg: rgba(22, 22, 29, 0.65);
+            --neon-purple: #a855f7;
+            --neon-purple-glow: rgba(168, 85, 247, 0.15);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #f3f4f6;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Apple风格液态毛玻璃效果 */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hover 交互动效与霓虹紫呼吸灯 */
+        .glass-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(168, 85, 247, 0.4);
+            box-shadow: 0 12px 30px -10px rgba(168, 85, 247, 0.25);
+        }
+
+        /* 呼吸灯效果 */
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(168, 85, 247, 0.08);
+            }
+            50% {
+                box-shadow: 0 0 35px rgba(168, 85, 247, 0.22);
+            }
+        }
+
+        .pulse-card {
+            animation: pulse-glow 4s infinite ease-in-out;
+        }
+
+        /* 视差渐显与流线动画 */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 自定义文本渐变 */
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 30%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="selection:bg-purple-500 selection:text-white">
+
+    <!-- 顶部导航栏 -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-card !rounded-none border-b border-white/10 px-8 py-4 flex justify-between items-center bg-black/40">
+        <div class="text-xl font-bold tracking-wider text-gradient">YUWEI LIU</div>
+        <div class="hidden md:flex space-x-8 text-sm text-gray-400 font-medium">
+            <a href="#about" class="hover:text-purple-400 transition-colors">关于我</a>
+            <a href="#projects" class="hover:text-purple-400 transition-colors">项目经历</a>
+            <a href="#experience" class="hover:text-purple-400 transition-colors">工作背景</a>
+            <a href="#honors" class="hover:text-purple-400 transition-colors">荣誉背书</a>
+        </div>
+        <a href="mailto:614677369@qq.com" class="px-4 py-2 text-xs font-semibold rounded-full bg-purple-600/20 text-purple-300 border border-purple-500/30 hover:bg-purple-600 hover:text-white transition-all">联系我</a>
+    </nav>
+
+    <!-- Hero 视觉区 -->
+    <section id="about" class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24 relative overflow-hidden">
+        <!-- 景深霓虹背景偏光 -->
+        <div class="absolute w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none -top-20 -left-20"></div>
+        <div class="absolute w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none -bottom-20 -right-20"></div>
+
+        <div class="reveal-on-scroll max-w-4xl">
+            <span class="px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-6 inline-block">
+                PORTFOLIO · 2026
+            </span>
+            <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+                刘钰炜 <span class="text-gradient">| Content & Brand Strategy</span>
+            </h1>
+            <p class="text-lg md:text-2xl text-gray-400 font-light max-w-3xl mx-auto mb-8 leading-relaxed">
+                项目策划 · 产品营销 · 内容创作 · AIGC应用
+            </p>
+            <p class="text-sm md:text-base text-gray-400 max-w-2xl mx-auto leading-relaxed mb-10">
+                具备六年新媒体内容创作与商业化实践经验。曾参与字节跳动热点运营、阿里巴巴开学季项目策划，独立运营12万粉丝内容账号，累计合作80余家品牌，参与百万级预算整合营销项目。
+            </p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto text-left">
+                <div class="p-4 glass-card">
+                    <div class="text-2xl font-bold text-purple-400">1亿+</div>
+                    <div class="text-xs text-gray-400 mt-1">全网全平台总播放量</div>
+                </div>
+                <div class="p-4 glass-card">
+                    <div class="text-2xl font-bold text-purple-400">12W+</div>
+                    <div class="text-xs text-gray-400 mt-1">独立运营账号粉丝</div>
+                </div>
+                <div class="p-4 glass-card">
+                    <div class="text-2xl font-bold text-purple-400">80+</div>
+                    <div class="text-xs text-gray-400 mt-1">知名大牌商业合作</div>
+                </div>
+                <div class="p-4 glass-card">
+                    <div class="text-2xl font-bold text-purple-400">100W</div>
+                    <div class="text-xs text-gray-400 mt-1">整合营销项目管理预算</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 便当盒 (Bento Grid) 项目经历展示区 -->
+    <section id="projects" class="max-w-7xl mx-auto px-6 py-24">
+        <div class="mb-16 reveal-on-scroll">
+            <h2 class="text-xs font-semibold tracking-widest text-purple-400 uppercase mb-2">Featured Projects</h2>
+            <p class="text-3xl md:text-5xl font-bold">核心项目策划与营销案例</p>
+        </div>
+
+        <!-- Bento Grid 布局容器 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- 卡片 1: 个人IP与内容增长 (大尺寸卡片) -->
+            <div class="md:col-span-2 glass-card p-8 pulse-card reveal-on-scroll flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="text-xs font-semibold px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">内容IP运营与商业化</span>
+                        <span class="text-xs text-gray-500">2021 - 至今</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">个人自媒体 IP: Liuyuw666</h3>
+                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">
+                        基于用户情绪洞察打造高共鸣内容，以“女性成长”为切口独立运营12万粉丝内容账号，擅长结合平台推荐机制提升内容触达与用户互动。
+                    </p>
+                    <ul class="text-xs text-gray-300 space-y-2 mb-6">
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></span>原创内容全平台累计播放量破1亿，小红书单篇阅读500W+，抖音单篇播放1000W+</li>
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></span>累计合作80余家品牌（包括华为、惠普、HBN、迪奥等），实现商业价值闭环</li>
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></span>原创短片《我的定义就是我》入选上海 GirlPower 主题展览展示</li>
+                    </ul>
+                </div>
+                <div class="pt-4 border-t border-white/10 text-xs text-gray-500 flex justify-between">
+                    <span>定位：内容策略 · 商业变现</span>
+                    <span>曝光量：100,000,000+</span>
+                </div>
+            </div>
+
+            <!-- 卡片 2: 百万级品牌公关整合营销 -->
+            <div class="glass-card p-8 reveal-on-scroll flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="text-xs font-semibold px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full border border-blue-500/30">品牌公关 & 媒介整合</span>
+                        <span class="text-xs text-gray-500">2023 - 至今</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">乐奇 × 腾讯 WorkBuddy 新品发布会</h3>
+                    <p class="text-xs text-gray-400 mb-4 leading-relaxed">
+                        百万级品牌整合营销与媒介传播宣发总负责人。统筹约100万元传播预算及150位内容创作者资源，覆盖达人筛选、传播内容策划、合作推进与项目落地执行。
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-white/10 text-xs text-gray-500">
+                    预算规模：100万 RMB | 触达达人：1000+
+                </div>
+            </div>
+
+            <!-- 卡片 3: 阿里巴巴开学季项目 -->
+            <div class="glass-card p-8 reveal-on-scroll flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="text-xs font-semibold px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full border border-amber-500/30">品牌营销案例</span>
+                        <span class="text-xs text-gray-500">2024</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">阿里巴巴总部 | 闲鱼开学季营销项目</h3>
+                    <p class="text-xs text-gray-400 mb-4 leading-relaxed">
+                        跨学科团队创意策划负责人。联合北京大学、香港科技大学教授团队，围绕校园用户洞察设计整合营销方案。
+                    </p>
+                    <ul class="text-xs text-gray-300 space-y-1">
+                        <li>• 推动项目曝光量突破 5 亿</li>
+                        <li>• 页面点击率提升 52%</li>
+                        <li>• 转化率同比增长 28%</li>
+                    </ul>
+                </div>
+                <div class="pt-4 border-t border-white/10 text-xs text-gray-500">
+                    合作：阿里巴巴闲鱼团队
+                </div>
+            </div>
+
+            <!-- 卡片 4: AIGC与数字影像 (横跨2列) -->
+            <div class="md:col-span-2 glass-card p-8 pulse-card reveal-on-scroll flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="text-xs font-semibold px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">前沿探索 & AIGC</span>
+                        <span class="text-xs text-gray-500">前沿实践</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">AIGC 创意生成与多模态数字内容</h3>
+                    <p class="text-sm text-gray-400 mb-4 leading-relaxed">
+                        持续探索 AIGC、数字影像与新媒体传播的融合应用，具备 AIGC 内容策划、AI 视频创作及工作流搭建能力。原创 AI 文旅短剧获福建永定一等奖（奖金 3W）。
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-white/10 text-xs text-gray-500 flex justify-between">
+                    <span>技能：GPT, Gemini Workbuddy, Skill 工作台搭建</span>
+                    <span>方向：生成式 AI 营销提效</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 工作履历 & 学历背景 -->
+    <section id="experience" class="max-w-7xl mx-auto px-6 py-24 border-t border-white/10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            
+            <!-- 左侧：工作/实习履历 -->
+            <div class="reveal-on-scroll">
+                <h2 class="text-xs font-semibold tracking-widest text-purple-400 uppercase mb-2">Experience</h2>
+                <h3 class="text-3xl font-bold mb-8">工作经验</h3>
+
+                <div class="space-y-8">
+                    <!-- 字节跳动 -->
+                    <div class="glass-card p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold text-white">字节跳动 - 剪映部门</h4>
+                            <span class="text-xs text-gray-500">2023.03 - 2023.06</span>
+                        </div>
+                        <p class="text-xs text-purple-400 mb-3">热点内容运营与传播策划</p>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            整理 700+ 热点话题，个人热点提报采纳率达 70%。独立完整负责母亲节、劳动节等活动，累计投稿 50w+，作品曝光 8 千万。维护模板作者 8000+，推动 V5 等级创作者新增 300+。
+                        </p>
+                    </div>
+
+                    <!-- 媒介公关/创业 -->
+                    <div class="glass-card p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold text-white">独立 PR 媒介公关</h4>
+                            <span class="text-xs text-gray-500">2023 - 至今</span>
+                        </div>
+                        <p class="text-xs text-purple-400 mb-3">商务拓展 & 项目统筹</p>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            对接百度等 20+ 品牌，历史合作项目金额 70W+。带领团队实现 1:4 投入产出比（ROI），完成从客户开发到复盘的全流程闭环。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧：学历与教学背景 -->
+            <div class="reveal-on-scroll">
+                <h2 class="text-xs font-semibold tracking-widest text-purple-400 uppercase mb-2">Education & Teaching</h2>
+                <h3 class="text-3xl font-bold mb-8">学历与教学成果</h3>
+
+                <div class="space-y-8">
+                    <!-- 学历 -->
+                    <div class="glass-card p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold text-white">香港教育大学</h4>
+                            <span class="text-xs text-gray-500">2026.09 - 2027.04</span>
+                        </div>
+                        <p class="text-xs text-purple-400 mb-2">硕士研究生</p>
+                        <p class="text-xs text-gray-400">社交与新媒体专业</p>
+                    </div>
+
+                    <!-- 教学经历 -->
+                    <div class="glass-card p-6">
+                        <h4 class="text-lg font-bold text-white mb-2">讲师与导师经历</h4>
+                        <ul class="text-xs text-gray-400 space-y-3">
+                            <li class="border-b border-white/5 pb-2">
+                                <strong class="text-gray-200">香港大学新媒体线上课程讲师：</strong> 主讲新媒体运营与个人品牌构建。
+                            </li>
+                            <li class="border-b border-white/5 pb-2">
+                                <strong class="text-gray-200">乡村振兴数字传播项目导师：</strong> 面向 100 位村书记开展新媒体传播培训，推动地方品牌建设。
+                            </li>
+                            <li>
+                                <strong class="text-gray-200">深圳职业技术大学：</strong> 创新思维教学实践讲师。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 荣誉与媒体认可 -->
+    <section id="honors" class="max-w-7xl mx-auto px-6 py-24 border-t border-white/10">
+        <div class="mb-12 reveal-on-scroll text-center">
+            <h2 class="text-xs font-semibold tracking-widest text-purple-400 uppercase mb-2">Recognition</h2>
+            <p class="text-3xl font-bold">行业荣誉与国家级媒体报道</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 reveal-on-scroll">
+            <div class="glass-card p-6 text-center">
+                <div class="text-sm font-bold text-white mb-1">APEA 官方青年代表</div>
+                <div class="text-xs text-gray-500">2025</div>
+            </div>
+            <div class="glass-card p-6 text-center">
+                <div class="text-sm font-bold text-white mb-1">福布斯环球联盟青年领袖</div>
+                <div class="text-xs text-gray-500">2024</div>
+            </div>
+            <div class="glass-card p-6 text-[#a855f7] text-center border-purple-500/30">
+                <div class="text-sm font-bold text-white mb-1">TED 主题演讲嘉宾</div>
+                <div class="text-xs text-purple-400">公众表达 & 品牌传播</div>
+            </div>
+            <div class="glass-card p-6 text-center">
+                <div class="text-sm font-bold text-white mb-1">湖南卫视节目嘉宾</div>
+                <div class="text-xs text-gray-500">2023</div>
+            </div>
+            <div class="glass-card p-6 text-center">
+                <div class="text-sm font-bold text-white mb-1">中国日报 / 中国青年报</div>
+                <div class="text-xs text-gray-500">专访与报道</div>
+            </div>
+            <div class="glass-card p-6 text-center">
+                <div class="text-sm font-bold text-white mb-1">《全球疫情纪录片》创作</div>
+                <div class="text-xs text-gray-500">播放量 1 亿+</div>
+            </div>
+            <div class="glass-card p-6 text-center">
+                <div class="text-sm font-bold text-white mb-1">全国美育艺术短片一等奖</div>
+                <div class="text-xs text-gray-500">2023</div>
+            </div>
+            <div class="glass-card p-6 text-center">
+                <div class="text-sm font-bold text-white mb-1">畅销图书出版参与</div>
+                <div class="text-xs text-gray-500">2024</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="border-t border-white/10 py-12 text-center text-xs text-gray-600">
+        <p class="mb-2">© 2026 刘钰炜 (Yuwei Liu). All Rights Reserved.</p>
+        <p>现居深圳 | 邮箱：614677369@qq.com | 电话：178-4838-6814</p>
+    </footer>
+
+    <!-- 视差滚动与渐显 JS 脚本 -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const observerOptions = {
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
