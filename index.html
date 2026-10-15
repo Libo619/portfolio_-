@@ -271,19 +271,24 @@
             <!-- 卡片 1: 个人IP与内容增长 -->
             <div class="glass-card p-8 pulse-card reveal-on-scroll flex flex-col justify-between">
                 <!-- 拼图：爆款数据 + 商单案例 + 收入 + 品牌订单 -->
-                <div class="grid grid-cols-2 gap-2 mb-6 group">
-                    <div class="rounded-lg overflow-hidden border border-white/10 h-36 md:h-40">
+                <!-- 手机端：网格固定 2 列且整体宽度按桌面比例放大（宽度超出卡片时横向滚动），
+                     这样每格形状与图片原比例一致，标题与数据不再被左右裁掉；
+                     sm 断点以上取消滚动、回到常规 2x2 自适应宽度 -->
+                <div class="mb-6">
+                  <div class="grid grid-cols-2 gap-2 group">
+                    <div class="rounded-lg overflow-hidden border border-white/10 aspect-[108/71]">
                         <img src="images/viral-content.jpg" alt="爆款内容数据总览" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
-                    <div class="rounded-lg overflow-hidden border border-white/10 h-36 md:h-40">
+                    <div class="rounded-lg overflow-hidden border border-white/10 aspect-[108/71]">
                         <img src="images/brand-cases.jpg" alt="商单案例品牌合作墙" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
-                    <div class="rounded-lg overflow-hidden border border-white/10 h-36 md:h-40">
-                        <img src="images/ip-revenue.jpg" alt="内容账号总收入" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="rounded-lg overflow-hidden border border-white/10 aspect-square">
+                        <img src="images/ip-revenue.jpg" alt="内容账号总收入" loading="lazy" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105">
                     </div>
-                    <div class="rounded-lg overflow-hidden border border-white/10 h-36 md:h-40">
+                    <div class="rounded-lg overflow-hidden border border-white/10 aspect-[108/71]">
                         <img src="images/ip-intel-order.jpg" alt="英特尔品牌合作订单" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
+                  </div>
                 </div>
                 <div>
                     <div class="flex justify-between items-start mb-6">
