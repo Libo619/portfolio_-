@@ -73,20 +73,134 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        /* ========== 图片画廊与灯箱 ========== */
+        .gallery-item {
+            cursor: zoom-in;
+        }
+        .gallery-item img {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        .gallery-caption {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.45) 55%, transparent 100%);
+        }
+        /* 灯箱遮罩 */
+        #lightbox {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            animation: lb-fadein 0.25s ease;
+        }
+        @keyframes lb-fadein {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        #lightbox img {
+            animation: lb-zoomin 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes lb-zoomin {
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .lb-btn {
+            background: rgba(22, 22, 29, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            transition: all 0.25s ease;
+        }
+        .lb-btn:hover {
+            background: rgba(168, 85, 247, 0.35);
+            border-color: rgba(168, 85, 247, 0.6);
+        }
+
+        /* ========== 联系我 · 悬停/点击浮现联系方式 ========== */
+        .contact-card {
+            position: absolute;
+            z-index: 60;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0.3s;
+        }
+        /* 页脚触发：卡片向上浮现（padding-bottom 为悬停桥接区） */
+        .contact-card--up {
+            bottom: 100%;
+            left: 50%;
+            padding-bottom: 12px;
+            transform: translate(-50%, 8px);
+        }
+        /* 导航触发：卡片向下浮现 */
+        .contact-card--down {
+            top: 100%;
+            right: 0;
+            padding-top: 12px;
+            transform: translateY(8px);
+        }
+        .contact-trigger:hover .contact-card,
+        .contact-trigger:focus-within .contact-card,
+        .contact-trigger.open .contact-card {
+            opacity: 1;
+            visibility: visible;
+        }
+        .contact-trigger:hover .contact-card--up,
+        .contact-trigger:focus-within .contact-card--up,
+        .contact-trigger.open .contact-card--up {
+            transform: translate(-50%, 0);
+        }
+        .contact-trigger:hover .contact-card--down,
+        .contact-trigger:focus-within .contact-card--down,
+        .contact-trigger.open .contact-card--down {
+            transform: translateY(0);
+        }
+        /* 浮现卡片小箭头 */
+        .contact-arrow {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(22, 22, 29, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transform: rotate(45deg);
+        }
+        .contact-arrow--up {
+            bottom: 7px;
+            left: calc(50% - 5px);
+            border-top: none;
+            border-left: none;
+        }
+        .contact-arrow--down {
+            top: 7px;
+            right: 18px;
+            border-bottom: none;
+            border-right: none;
+        }
     </style>
 </head>
 <body class="selection:bg-purple-500 selection:text-white">
 
     <!-- 顶部导航栏 -->
-    <nav class="fixed top-0 left-0 w-full z-50 glass-card !rounded-none border-b border-white/10 px-8 py-4 flex justify-between items-center bg-black/40">
+    <nav class="fixed top-0 left-0 w-full z-50 glass-card !rounded-none !overflow-visible border-b border-white/10 px-8 py-4 flex justify-between items-center bg-black/40">
         <div class="text-xl font-bold tracking-wider text-gradient">YUWEI LIU</div>
         <div class="hidden md:flex space-x-8 text-sm text-gray-400 font-medium">
             <a href="#about" class="hover:text-purple-400 transition-colors">关于我</a>
             <a href="#projects" class="hover:text-purple-400 transition-colors">项目经历</a>
+            <a href="#gallery" class="hover:text-purple-400 transition-colors">作品瞬间</a>
             <a href="#experience" class="hover:text-purple-400 transition-colors">工作背景</a>
             <a href="#honors" class="hover:text-purple-400 transition-colors">荣誉背书</a>
         </div>
-        <a href="mailto:614677369@qq.com" class="px-4 py-2 text-xs font-semibold rounded-full bg-purple-600/20 text-purple-300 border border-purple-500/30 hover:bg-purple-600 hover:text-white transition-all">联系我</a>
+        <!-- 联系我：hover / 点击 浮现联系方式 -->
+        <div class="contact-trigger relative inline-block">
+            <button type="button" class="px-4 py-2 text-xs font-semibold rounded-full bg-purple-600/20 text-purple-300 border border-purple-500/30 hover:bg-purple-600 hover:text-white transition-all cursor-pointer">联系我</button>
+            <div class="contact-card contact-card--down w-56">
+                <div class="glass-card px-5 py-4 text-left text-xs text-gray-300 space-y-2">
+                    <p class="whitespace-nowrap"><a href="tel:17848386814" class="hover:text-purple-300 transition-colors">联系方式：178-4838-6814</a></p>
+                    <p class="whitespace-nowrap"><a href="mailto:614677369@qq.com" class="hover:text-purple-300 transition-colors">邮 箱：614677369@qq.com</a></p>
+                </div>
+                <span class="contact-arrow contact-arrow--down"></span>
+            </div>
+        </div>
     </nav>
 
     <!-- Hero 视觉区 -->
@@ -95,21 +209,23 @@
         <div class="absolute w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none -top-20 -left-20"></div>
         <div class="absolute w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none -bottom-20 -right-20"></div>
 
-        <div class="reveal-on-scroll max-w-4xl">
-            <span class="px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-6 inline-block">
-                PORTFOLIO · 2026
-            </span>
-            <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
-                刘钰炜 <span class="text-gradient">| Content & Brand Strategy</span>
-            </h1>
-            <p class="text-lg md:text-2xl text-gray-400 font-light max-w-3xl mx-auto mb-8 leading-relaxed">
-                项目策划 · 产品营销 · 内容创作 · AIGC应用
-            </p>
-            <p class="text-sm md:text-base text-gray-400 max-w-2xl mx-auto leading-relaxed mb-10">
-                具备六年新媒体内容创作与商业化实践经验。曾参与字节跳动热点运营、阿里巴巴开学季项目策划，独立运营12万粉丝内容账号，累计合作80余家品牌，参与百万级预算整合营销项目。
-            </p>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto text-left">
+        <div class="reveal-on-scroll max-w-6xl w-full grid md:grid-cols-[1.5fr_1fr] gap-10 md:gap-14 items-center text-center md:text-left">
+            <!-- 左侧：文字介绍与核心数据 -->
+            <div>
+                <span class="px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-6 inline-block">
+                    PORTFOLIO · 2026
+                </span>
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                    刘钰炜 <span class="text-gradient">| Content & Brand Strategy</span>
+                </h1>
+                <p class="text-lg md:text-2xl text-gray-400 font-light max-w-2xl mx-auto md:mx-0 mb-8 leading-relaxed">
+                    项目策划 · 产品营销 · 内容创作 · AIGC应用
+                </p>
+                <p class="text-sm md:text-base text-gray-400 max-w-2xl mx-auto md:mx-0 leading-relaxed mb-10">
+                    具备六年新媒体内容创作与商业化实践经验。曾参与字节跳动热点运营、阿里巴巴开学季项目策划，独立运营12万粉丝内容账号，累计合作80余家品牌，参与百万级预算整合营销项目。
+                </p>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
                 <div class="p-4 glass-card">
                     <div class="text-2xl font-bold text-purple-400">1亿+</div>
                     <div class="text-xs text-gray-400 mt-1">全网全平台总播放量</div>
@@ -126,6 +242,18 @@
                     <div class="text-2xl font-bold text-purple-400">100W</div>
                     <div class="text-xs text-gray-400 mt-1">整合营销项目管理预算</div>
                 </div>
+                </div>
+            </div>
+
+            <!-- 右侧：人物照 -->
+            <div class="relative w-full max-w-sm mx-auto md:max-w-none">
+                <div class="absolute -inset-4 bg-purple-600/20 blur-3xl rounded-full pointer-events-none"></div>
+                <div class="glass-card p-2 rounded-3xl relative rotate-2 hover:rotate-0 transition-transform duration-700">
+                    <img src="images/hero-portrait.jpg" alt="刘钰炜 · 品牌活动掠影" width="864" height="1152" class="rounded-2xl w-full h-auto object-cover">
+                    <div class="absolute bottom-4 left-4 right-4 flex justify-center">
+                        <span class="px-3 py-1 rounded-full text-[10px] font-semibold tracking-wider bg-black/60 text-purple-300 border border-purple-500/30 backdrop-blur">YUWEI LIU · 深圳</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -137,11 +265,26 @@
             <p class="text-3xl md:text-5xl font-bold">核心项目策划与营销案例</p>
         </div>
 
-        <!-- Bento Grid 布局容器 -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Bento Grid 布局容器（2x2 均衡布局） -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            <!-- 卡片 1: 个人IP与内容增长 (大尺寸卡片) -->
-            <div class="md:col-span-2 glass-card p-8 pulse-card reveal-on-scroll flex flex-col justify-between">
+            <!-- 卡片 1: 个人IP与内容增长 -->
+            <div class="glass-card p-8 pulse-card reveal-on-scroll flex flex-col justify-between">
+                <!-- 拼图：爆款数据 + 商单案例 + 收入 + 品牌订单 -->
+                <div class="grid grid-cols-2 gap-2 mb-6 group">
+                    <div class="rounded-lg overflow-hidden border border-white/10 h-36 md:h-40">
+                        <img src="images/viral-content.jpg" alt="爆款内容数据总览" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="rounded-lg overflow-hidden border border-white/10 h-36 md:h-40">
+                        <img src="images/brand-cases.jpg" alt="商单案例品牌合作墙" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="rounded-lg overflow-hidden border border-white/10 h-36 md:h-40">
+                        <img src="images/ip-revenue.jpg" alt="内容账号总收入" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="rounded-lg overflow-hidden border border-white/10 h-36 md:h-40">
+                        <img src="images/ip-intel-order.jpg" alt="英特尔品牌合作订单" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                </div>
                 <div>
                     <div class="flex justify-between items-start mb-6">
                         <span class="text-xs font-semibold px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">内容IP运营与商业化</span>
@@ -165,6 +308,9 @@
 
             <!-- 卡片 2: 百万级品牌公关整合营销 -->
             <div class="glass-card p-8 reveal-on-scroll flex flex-col justify-between">
+                <div class="rounded-xl overflow-hidden mb-6 border border-white/10 group">
+                    <img src="images/workbuddy-metro.jpg" alt="乐奇AI眼镜 x WORKBUDDY 深圳地铁广告" loading="lazy" class="w-full h-auto block transition-transform duration-700 group-hover:scale-105">
+                </div>
                 <div>
                     <div class="flex justify-between items-start mb-6">
                         <span class="text-xs font-semibold px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full border border-blue-500/30">品牌公关 & 媒介整合</span>
@@ -182,6 +328,15 @@
 
             <!-- 卡片 3: 阿里巴巴开学季项目 -->
             <div class="glass-card p-8 reveal-on-scroll flex flex-col justify-between">
+                <!-- 拼图：项目汇报 + 传播节奏 -->
+                <div class="grid grid-cols-2 gap-2 mb-6 group">
+                    <div class="rounded-lg overflow-hidden border border-white/10 h-40 md:h-44">
+                        <img src="images/xianyu-presentation.jpg" alt="闲鱼开学季项目共创汇报" loading="lazy" class="w-full h-full object-cover object-[center_28%] transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="rounded-lg overflow-hidden border border-white/10 h-40 md:h-44">
+                        <img src="images/xianyu-timeline.jpg" alt="闲鱼项目传播节奏规划" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                </div>
                 <div>
                     <div class="flex justify-between items-start mb-6">
                         <span class="text-xs font-semibold px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full border border-amber-500/30">品牌营销案例</span>
@@ -202,8 +357,12 @@
                 </div>
             </div>
 
-            <!-- 卡片 4: AIGC与数字影像 (横跨2列) -->
-            <div class="md:col-span-2 glass-card p-8 pulse-card reveal-on-scroll flex flex-col justify-between">
+            <!-- 卡片 4: AIGC与数字影像 -->
+            <div class="glass-card p-8 pulse-card reveal-on-scroll flex flex-col justify-between">
+                <!-- 配图：AIGC 原创作品（高度与左侧闲鱼卡片拼图对齐） -->
+                <div class="rounded-xl overflow-hidden mb-6 border border-white/10 group">
+                    <img src="images/AIGC.jpg" alt="AIGC 创意生成 · 原创AI动画短片作品" loading="lazy" class="w-full h-40 md:h-44 object-cover object-[center_45%] transition-transform duration-700 group-hover:scale-105">
+                </div>
                 <div>
                     <div class="flex justify-between items-start mb-6">
                         <span class="text-xs font-semibold px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">前沿探索 & AIGC</span>
@@ -223,74 +382,164 @@
         </div>
     </section>
 
+    <!-- 作品瞬间 · 图片画廊 -->
+    <section id="gallery" class="max-w-7xl mx-auto px-6 py-24 border-t border-white/10">
+        <div class="mb-16 reveal-on-scroll">
+            <h2 class="text-xs font-semibold tracking-widest text-purple-400 uppercase mb-2">Visual Archive</h2>
+            <p class="text-3xl md:text-5xl font-bold">作品与活动瞬间</p>
+            <p class="text-sm text-gray-500 mt-4">点击任意图片查看大图 · 支持键盘 ← → 切换、ESC 退出</p>
+        </div>
+
+        <!-- 统一网格布局：同行图片顶端与底端严格对齐，消除瀑布流空洞 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <figure class="gallery-item glass-card reveal-on-scroll group relative overflow-hidden aspect-[4/3]" data-src="images/girlpower-exhibition.jpg" data-caption="原创短片《我的定义就是我》入选上海 GirlPower 主题展览展出">
+                <img src="images/girlpower-exhibition.jpg" alt="上海GirlPower展览现场" loading="lazy" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+                <figcaption class="gallery-caption absolute bottom-0 left-0 right-0 p-4 pt-12 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div class="text-sm font-bold text-white">GirlPower 主题展览</div>
+                    <div class="text-xs text-purple-300 mt-1">原创短片《我的定义就是我》· 上海展出</div>
+                </figcaption>
+            </figure>
+
+            <figure class="gallery-item glass-card reveal-on-scroll group relative overflow-hidden aspect-[4/3]" data-src="images/ted-speech.jpg" data-caption="TED 主题演讲嘉宾 · 创意传播与公众表达">
+                <img src="images/ted-speech.jpg" alt="TED主题演讲现场" loading="lazy" class="w-full h-full object-cover object-[center_45%] transition-transform duration-700 group-hover:scale-105">
+                <figcaption class="gallery-caption absolute bottom-0 left-0 right-0 p-4 pt-12 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div class="text-sm font-bold text-white">TED 主题演讲</div>
+                    <div class="text-xs text-purple-300 mt-1">创意传播与公众表达</div>
+                </figcaption>
+            </figure>
+
+            <figure class="gallery-item glass-card reveal-on-scroll group relative overflow-hidden aspect-[4/3]" data-src="images/byd-event.jpg" data-caption="比亚迪品牌共创活动 · 「带电势」校园行现场统筹">
+                <img src="images/byd-event.jpg" alt="比亚迪品牌共创活动现场" loading="lazy" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+                <figcaption class="gallery-caption absolute bottom-0 left-0 right-0 p-4 pt-12 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div class="text-sm font-bold text-white">比亚迪品牌共创活动</div>
+                    <div class="text-xs text-purple-300 mt-1">「带电势」校园行 · 现场统筹</div>
+                </figcaption>
+            </figure>
+
+            <figure class="gallery-item glass-card reveal-on-scroll group relative overflow-hidden aspect-[4/3]" data-src="images/hbn-coop.jpg" data-caption="HBN 品牌合作短片 · 品宣内容共创">
+                <img src="images/hbn-coop.jpg" alt="HBN品牌合作短片" loading="lazy" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105">
+                <figcaption class="gallery-caption absolute bottom-0 left-0 right-0 p-4 pt-12 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div class="text-sm font-bold text-white">HBN 品牌合作短片</div>
+                    <div class="text-xs text-purple-300 mt-1">品宣内容共创 · 商业内容策划</div>
+                </figcaption>
+            </figure>
+
+            <figure class="gallery-item glass-card reveal-on-scroll group relative overflow-hidden aspect-[4/3]" data-src="images/rural-mentor.jpg" data-caption="乡村振兴「村长班」· 数字传播项目导师">
+                <img src="images/rural-mentor.jpg" alt="乡村振兴村长班授课现场" loading="lazy" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105">
+                <figcaption class="gallery-caption absolute bottom-0 left-0 right-0 p-4 pt-12 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div class="text-sm font-bold text-white">乡村振兴「村长班」</div>
+                    <div class="text-xs text-purple-300 mt-1">数字传播项目导师 · 面向百位村书记</div>
+                </figcaption>
+            </figure>
+
+            <figure class="gallery-item glass-card reveal-on-scroll group relative overflow-hidden aspect-[4/3]" data-src="images/teaching-class.jpg" data-caption="高校教学实践 · 创新思维与新媒体课程讲师">
+                <img src="images/teaching-class.jpg" alt="高校课堂教学现场" loading="lazy" class="w-full h-full object-cover object-[center_35%] transition-transform duration-700 group-hover:scale-105">
+                <figcaption class="gallery-caption absolute bottom-0 left-0 right-0 p-4 pt-12 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div class="text-sm font-bold text-white">高校教学实践</div>
+                    <div class="text-xs text-purple-300 mt-1">创新思维与新媒体课程讲师</div>
+                </figcaption>
+            </figure>
+
+            <figure class="gallery-item glass-card reveal-on-scroll group relative overflow-hidden aspect-[4/3]" data-src="images/piano-life.jpg" data-caption="音乐与创作 · 钢琴 / 词曲 / 生活美学">
+                <img src="images/piano-life.jpg" alt="钢琴创作生活照" loading="lazy" class="w-full h-full object-cover object-[center_55%] transition-transform duration-700 group-hover:scale-105">
+                <figcaption class="gallery-caption absolute bottom-0 left-0 right-0 p-4 pt-12 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div class="text-sm font-bold text-white">音乐与创作</div>
+                    <div class="text-xs text-purple-300 mt-1">钢琴 · 词曲 · 生活美学</div>
+                </figcaption>
+            </figure>
+
+            <figure class="gallery-item glass-card reveal-on-scroll group relative overflow-hidden aspect-[4/3]" data-src="images/china-daily.jpg" data-caption="中国日报 · 国家级媒体专访报道">
+                <img src="images/china-daily.jpg" alt="中国日报报道截图" loading="lazy" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105">
+                <figcaption class="gallery-caption absolute bottom-0 left-0 right-0 p-4 pt-12 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <div class="text-sm font-bold text-white">中国日报报道</div>
+                    <div class="text-xs text-purple-300 mt-1">国家级媒体专访与报道</div>
+                </figcaption>
+            </figure>
+
+        </div>
+    </section>
+
     <!-- 工作履历 & 学历背景 -->
     <section id="experience" class="max-w-7xl mx-auto px-6 py-24 border-t border-white/10">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            
-            <!-- 左侧：工作/实习履历 -->
-            <div class="reveal-on-scroll">
+        <!-- 2x2 网格：同行卡片由网格行自动等高，顶底严格对齐；移动端按单列顺序重排 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+
+            <!-- 标题行：工作经验 -->
+            <div class="order-1 md:col-start-1 md:row-start-1 reveal-on-scroll">
                 <h2 class="text-xs font-semibold tracking-widest text-purple-400 uppercase mb-2">Experience</h2>
                 <h3 class="text-3xl font-bold mb-8">工作经验</h3>
+            </div>
 
-                <div class="space-y-8">
-                    <!-- 字节跳动 -->
-                    <div class="glass-card p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="text-lg font-bold text-white">字节跳动 - 剪映部门</h4>
-                            <span class="text-xs text-gray-500">2023.03 - 2023.06</span>
-                        </div>
+            <!-- 标题行：学历与教学成果 -->
+            <div class="order-4 md:col-start-2 md:row-start-1 reveal-on-scroll">
+                <h2 class="text-xs font-semibold tracking-widest text-purple-400 uppercase mb-2">Education &amp; Teaching</h2>
+                <h3 class="text-3xl font-bold mb-8">学历与教学成果</h3>
+            </div>
+
+            <!-- 第一行 · 左：字节跳动 -->
+            <div class="order-2 md:col-start-1 md:row-start-2 glass-card p-6 reveal-on-scroll flex flex-col">
+                <div class="flex gap-4 items-stretch flex-1">
+                    <div class="w-24 sm:w-28 shrink-0 rounded-lg overflow-hidden border border-white/10 group">
+                        <img src="images/bytedance-intern.jpg" alt="字节跳动剪映部门实习工牌" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="flex-1 min-w-0 flex flex-col justify-center">
+                        <h4 class="text-base font-bold text-white">字节跳动 - 剪映部门</h4>
+                        <div class="text-xs text-gray-500 mb-2">2023.03 - 2023.06</div>
                         <p class="text-xs text-purple-400 mb-3">热点内容运营与传播策划</p>
                         <p class="text-xs text-gray-400 leading-relaxed">
                             整理 700+ 热点话题，个人热点提报采纳率达 70%。独立完整负责母亲节、劳动节等活动，累计投稿 50w+，作品曝光 8 千万。维护模板作者 8000+，推动 V5 等级创作者新增 300+。
                         </p>
                     </div>
-
-                    <!-- 媒介公关/创业 -->
-                    <div class="glass-card p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="text-lg font-bold text-white">独立 PR 媒介公关</h4>
-                            <span class="text-xs text-gray-500">2023 - 至今</span>
-                        </div>
-                        <p class="text-xs text-purple-400 mb-3">商务拓展 & 项目统筹</p>
-                        <p class="text-xs text-gray-400 leading-relaxed">
-                            对接百度等 20+ 品牌，历史合作项目金额 70W+。带领团队实现 1:4 投入产出比（ROI），完成从客户开发到复盘的全流程闭环。
-                        </p>
-                    </div>
                 </div>
             </div>
 
-            <!-- 右侧：学历与教学背景 -->
-            <div class="reveal-on-scroll">
-                <h2 class="text-xs font-semibold tracking-widest text-purple-400 uppercase mb-2">Education & Teaching</h2>
-                <h3 class="text-3xl font-bold mb-8">学历与教学成果</h3>
-
-                <div class="space-y-8">
-                    <!-- 学历 -->
-                    <div class="glass-card p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="text-lg font-bold text-white">香港教育大学</h4>
-                            <span class="text-xs text-gray-500">2026.09 - 2027.04</span>
-                        </div>
-                        <p class="text-xs text-purple-400 mb-2">硕士研究生</p>
-                        <p class="text-xs text-gray-400">社交与新媒体专业</p>
-                    </div>
-
-                    <!-- 教学经历 -->
-                    <div class="glass-card p-6">
-                        <h4 class="text-lg font-bold text-white mb-2">讲师与导师经历</h4>
-                        <ul class="text-xs text-gray-400 space-y-3">
-                            <li class="border-b border-white/5 pb-2">
-                                <strong class="text-gray-200">香港大学新媒体线上课程讲师：</strong> 主讲新媒体运营与个人品牌构建。
-                            </li>
-                            <li class="border-b border-white/5 pb-2">
-                                <strong class="text-gray-200">乡村振兴数字传播项目导师：</strong> 面向 100 位村书记开展新媒体传播培训，推动地方品牌建设。
-                            </li>
-                            <li>
-                                <strong class="text-gray-200">深圳职业技术大学：</strong> 创新思维教学实践讲师。
-                            </li>
-                        </ul>
-                    </div>
+            <!-- 第一行 · 右：香港教育大学 -->
+            <div class="order-5 md:col-start-2 md:row-start-2 glass-card p-6 reveal-on-scroll flex flex-col justify-center">
+                <div class="rounded-lg overflow-hidden mb-4 border border-white/10 bg-white inline-block">
+                    <img src="images/eduhk-logo.jpg" alt="香港教育大学" loading="lazy" class="w-52 h-auto block">
                 </div>
+                <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-lg font-bold text-white">香港教育大学</h4>
+                    <span class="text-xs text-gray-500">2026.09 - 2027.04</span>
+                </div>
+                <p class="text-xs text-purple-400 mb-2">硕士研究生</p>
+                <p class="text-xs text-gray-400">社交与新媒体专业</p>
+            </div>
+
+            <!-- 第二行 · 左：独立 PR 媒介公关 -->
+            <div class="order-3 md:col-start-1 md:row-start-3 glass-card p-6 reveal-on-scroll flex flex-col">
+                <div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="text-lg font-bold text-white">独立 PR 媒介公关</h4>
+                        <span class="text-xs text-gray-500">2023 - 至今</span>
+                    </div>
+                    <p class="text-xs text-purple-400 mb-3">商务拓展 &amp; 项目统筹</p>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        对接百度等 20+ 品牌，历史合作项目金额 70W+。带领团队实现 1:4 投入产出比（ROI），完成从客户开发到复盘的全流程闭环。
+                    </p>
+                </div>
+                <div class="mt-auto pt-4 border-t border-white/10 flex flex-wrap gap-x-6 gap-y-1 text-xs text-gray-500">
+                    <span>合作品牌：20+</span>
+                    <span>项目金额：70W+</span>
+                    <span>投产比：1:4</span>
+                </div>
+            </div>
+
+            <!-- 第二行 · 右：讲师与导师经历 -->
+            <div class="order-6 md:col-start-2 md:row-start-3 glass-card p-6 reveal-on-scroll flex flex-col justify-center">
+                <h4 class="text-lg font-bold text-white mb-3">讲师与导师经历</h4>
+                <ul class="text-xs text-gray-400 space-y-3">
+                    <li class="border-b border-white/5 pb-2">
+                        <strong class="text-gray-200">香港大学新媒体线上课程讲师：</strong> 主讲新媒体运营与个人品牌构建。
+                    </li>
+                    <li class="border-b border-white/5 pb-2">
+                        <strong class="text-gray-200">乡村振兴数字传播项目导师：</strong> 面向 100 位村书记开展新媒体传播培训，推动地方品牌建设。
+                    </li>
+                    <li>
+                        <strong class="text-gray-200">深圳职业技术大学：</strong> 创新思维教学实践讲师。
+                    </li>
+                </ul>
             </div>
 
         </div>
@@ -341,9 +590,31 @@
 
     <!-- 页脚 -->
     <footer class="border-t border-white/10 py-12 text-center text-xs text-gray-600">
-        <p class="mb-2">© 2026 刘钰炜 (Yuwei Liu). All Rights Reserved.</p>
-        <p>现居深圳 | 邮箱：614677369@qq.com | 电话：178-4838-6814</p>
+        <p class="mb-6">© 2026 刘钰炜 (Yuwei Liu). All Rights Reserved.</p>
+        <!-- 联系我：鼠标悬停 / 点击 浮现联系方式（分行显示） -->
+        <div class="contact-trigger relative inline-block">
+            <button type="button" class="px-6 py-2.5 rounded-full text-sm font-semibold bg-purple-600/20 text-purple-300 border border-purple-500/30 hover:bg-purple-600 hover:text-white transition-all duration-300 cursor-pointer">联系我</button>
+            <div class="contact-card contact-card--up w-56">
+                <div class="glass-card px-5 py-4 text-left text-xs text-gray-300 space-y-2">
+                    <p class="whitespace-nowrap"><a href="tel:17848386814" class="hover:text-purple-300 transition-colors">联系方式：178-4838-6814</a></p>
+                    <p class="whitespace-nowrap"><a href="mailto:614677369@qq.com" class="hover:text-purple-300 transition-colors">邮 箱：614677369@qq.com</a></p>
+                </div>
+                <span class="contact-arrow contact-arrow--up"></span>
+            </div>
+        </div>
+        <p class="mt-4 text-[10px] text-gray-600 tracking-wider">悬停 / 点击「联系我」查看联系方式</p>
     </footer>
+
+    <!-- 图片灯箱 Lightbox -->
+    <div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 p-4 md:p-8">
+        <button id="lb-close" class="lb-btn absolute top-5 right-5 w-11 h-11 rounded-full flex items-center justify-center text-white text-xl z-10" aria-label="关闭">✕</button>
+        <button id="lb-prev" class="lb-btn absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center text-white text-2xl z-10" aria-label="上一张">‹</button>
+        <button id="lb-next" class="lb-btn absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center text-white text-2xl z-10" aria-label="下一张">›</button>
+        <figure class="max-w-5xl w-full flex flex-col items-center">
+            <img id="lb-img" src="" alt="" class="max-h-[80vh] w-auto max-w-full rounded-xl border border-white/10 shadow-2xl">
+            <figcaption id="lb-caption" class="mt-4 text-sm text-gray-300 text-center px-4"></figcaption>
+        </figure>
+    </div>
 
     <!-- 视差滚动与渐显 JS 脚本 -->
     <script>
@@ -362,6 +633,75 @@
 
             document.querySelectorAll('.reveal-on-scroll').forEach(el => {
                 observer.observe(el);
+            });
+
+            // ===== 画廊灯箱 =====
+            const items = Array.from(document.querySelectorAll('.gallery-item'));
+            const lightbox = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lb-img');
+            const lbCaption = document.getElementById('lb-caption');
+            let current = 0;
+
+            function show(index) {
+                current = (index + items.length) % items.length;
+                const item = items[current];
+                lbImg.src = item.dataset.src;
+                lbImg.alt = item.querySelector('img').alt;
+                lbCaption.textContent = item.dataset.caption;
+            }
+
+            function openLightbox(index) {
+                show(index);
+                lightbox.classList.remove('hidden');
+                lightbox.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+                document.body.style.overflow = '';
+            }
+
+            items.forEach((item, i) => {
+                item.addEventListener('click', () => openLightbox(i));
+            });
+
+            document.getElementById('lb-close').addEventListener('click', closeLightbox);
+            document.getElementById('lb-prev').addEventListener('click', () => show(current - 1));
+            document.getElementById('lb-next').addEventListener('click', () => show(current + 1));
+
+            // 点击遮罩空白处关闭
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            // 键盘操作：ESC 关闭（灯箱与联系卡），左右方向键切换
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                    document.querySelectorAll('.contact-trigger.open').forEach(t => t.classList.remove('open'));
+                }
+                if (lightbox.classList.contains('hidden')) return;
+                if (e.key === 'ArrowLeft') show(current - 1);
+                if (e.key === 'ArrowRight') show(current + 1);
+            });
+
+            // ===== 联系我：悬停浮现 + 触屏点击切换 =====
+            const contactTriggers = document.querySelectorAll('.contact-trigger');
+            contactTriggers.forEach(trigger => {
+                const btn = trigger.querySelector('button');
+                if (!btn) return;
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const wasOpen = trigger.classList.contains('open');
+                    contactTriggers.forEach(t => t.classList.remove('open'));
+                    if (!wasOpen) trigger.classList.add('open');
+                });
+            });
+            // 点击页面其他位置时收起
+            document.addEventListener('click', () => {
+                contactTriggers.forEach(t => t.classList.remove('open'));
             });
         });
     </script>
