@@ -10,3 +10,7 @@ desktop.ini
 # 临时文件
 *.log
 *.tmp
+# Tailwind 构建中间产物
+tailwind.generated.css
+tailwind.input.css
+tailwind.config.js
