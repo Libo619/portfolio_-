@@ -10,7 +10,7 @@ desktop.ini
 # 临时文件
 *.log
 *.tmp
-# Tailwind 构建中间产物
-tailwind.generated.css
-tailwind.input.css
-tailwind.config.js
+
+# 注意：tailwind.generated.css / .input.css / .config.js 需要提交
+# 站点已完全离线自足（无任何 CDN 依赖），依赖的是已构建好的 CSS，
+# 只提交配置而不提交产物会导致克隆后页面无样式。
